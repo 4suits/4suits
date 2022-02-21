@@ -1,0 +1,171 @@
+import math
+def North_flow(dis_n,x, y):
+    x0= 0
+    y0= dis_n
+    x, y = x+x0, y+y0
+    return x, y
+def North_East_flow(dis_ne, x, y):
+    theta = (math.pi/180) * 45
+    x1, y1 = round(dis_ne*(math.cos(theta)),2), round(dis_ne*(math.sin(theta)),2)
+    x, y= x+x1, y+y1
+    return x,y
+def East_flow(dis_ne, x, y):
+    x2 = dis_ne + x
+    y2 = y
+    x, y = x2, y2
+    return x, y
+def South_East_flow(dis_ne, x, y):
+    theta = (math.pi/180) * 315
+    x3 , y3= round(dis_ne*(math.cos(theta)),2), round(dis_ne*(math.sin(theta)),2)
+    x, y = x+x3, y+y3
+    return x,y
+def South_flow(dis_ne, x, y):
+    x4 = x
+    y4 = y - dis_ne
+    x, y = x4, y4
+    return x,y
+def South_West_flow(dis_ne, x, y):
+    theta = (math.pi/180) * 225
+    x5, y5= round(dis_ne*(math.cos(theta)),2), round(dis_ne*(math.sin(theta)),2)
+    x, y = x+x5, y+y5
+    return x, y
+def West_flow(dis_ne, x,y):
+    x6 = x - dis_ne
+    y6 = y
+    x,y = x6, y6
+    return x,y
+def North_West_flow(dis_ne, x, y):
+    theta = (math.pi/180) * 135
+    x7, y7 = round(dis_ne*(math.cos(theta)),2), round(dis_ne*(math.sin(theta)),2)
+    x, y = x+x7, y+y7
+    return x,y
+
+def input_1(command, init_loc):
+    l = len(command)
+    c1 = []
+    x0, y0 = init_loc
+    xf, xf1, yf, yf1 = 0,0,0,0
+    for x in range(0,l):
+        c1 = command[x]
+        if c1[0] == 'N':
+            d = c1[1]
+
+            xf, yf = North_flow(dis_n=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+
+            continue
+        elif c1[0] == 'NE':
+            d = c1[1]
+
+            xf, yf = North_East_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+
+            continue
+        elif c1[0] == 'E':
+            d = c1[1]
+
+            xf, yf = East_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        elif c1[0] == 'SE':
+            d = c1[1]
+
+            xf, yf = South_East_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        elif c1[0] == 'S':
+            d = c1[1]
+
+            xf, yf = South_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        elif c1[0] == 'SW':
+            d = c1[1]
+
+            xf, yf = South_West_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        elif c1[0] == 'W':
+            d = c1[1]
+
+            xf, yf = West_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        elif c1[0] == 'NW':
+            d = c1[1]
+
+            xf, yf = North_West_flow(dis_ne=d, x= x0, y= y0)
+            xf1 += xf
+            yf1 += yf
+            continue
+        else:
+            print('End')
+            break
+    x_fin, y_fin = (x0+xf1), (y0+yf1)
+    return  x_fin, y_fin
+
+
+def location(l):
+    pos_1 = l[0]
+    pos_2 = l[1]
+    if (pos_1==0 and pos_2>0):
+        curr_loc = 'North '
+    elif (pos_1==0 and pos_2<0):
+        curr_loc = 'South '
+    elif (pos_1>0 and pos_2==0):
+        curr_loc = 'East '
+    elif (pos_1<0 and pos_2==0):
+        curr_loc = 'West '
+    elif (pos_1>0 and pos_2>0):
+        curr_loc = 'North East '
+    elif (pos_1<0 and pos_2>0):
+        curr_loc = 'North West '
+    elif (pos_1>0 and pos_2<0):
+        curr_loc = 'South East '
+    elif (pos_1<0 and pos_2<0):
+        curr_loc = 'South West '
+    else:
+        curr_loc = 'Origin '
+    return curr_loc
+
+
+def inputs():
+    txt= 'Captain 4suits is on a ride with his ship.' \
+         'He orders his sailors with directions and distances to travel next.' \
+         '4suits says, North, 25, South 45 etc. while he says simultaneously,' \
+         'sailors take it as a single command and moves the ship.' \
+         'Our objective is to give Captain 4suits his final location in 2-d' \
+         'co-ordinates.'
+    print(txt)
+    i = int(input('\nPlease enter the number of direction Capt. 4suits gave\n'))
+    direction_list, distance_list = [], []
+    txt1 = 'Please enter directions and distances in order specific way like' \
+           'this > North as NW, 25; SW, 50, etc.'
+    print(txt1)
+    for _ in range(0, i):
+        i1 = input('\nDirection, i.e. NW, S, W etc.\n')
+        direction_list.append(i1)
+        i2 = float(input('\nThe distance for aforementioned direction, i.e. 20, 50, etc.\n'))
+        distance_list.append(i2)
+        continue
+    command_list = tuple(zip(direction_list, distance_list))
+    i3 = int(input('\nSpecify the initial co-ordinate 1\n'))
+    i4 = int(input('\nSpecify the initial co-ordinate 2\n'))
+    i5 = [i3, i4]
+    v1 = input_1(command=command_list, init_loc=i5)
+    cc1 , cc2 = v1
+    cc1 = round(cc1,2)
+    cc2 = round(cc2,2)
+    i6 = location(l= [cc1,cc2])
+    code = i6 + '(' + str(cc1)+''+ ',' + ''+ str(cc2)+ ')'
+    code_1 = 'The ship is currently at\n' + code
+    return code_1
+v = inputs()
+print(v)

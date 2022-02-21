@@ -1,0 +1,215 @@
+# Object Oriented Programming- 1
+
+class Mathematics():
+    print('Only takes two variable values to operate basic maths.')
+    var_1 = float(input('Your varible one '))
+    var_2 = float(input('Your variable two '))
+
+
+
+class  Add(Mathematics):
+
+    def f1(self, v1= Mathematics.var_1, v2= Mathematics.var_2):
+        v3 = v1 + v2
+        return '\nThe addition of variables is ' + str(v3)
+
+
+class Subtraction(Mathematics):
+    def f2(self, v1= Mathematics.var_1, v2= Mathematics.var_2):
+        if v1>v2:
+            v3 = v1-v2
+        elif v1==v2:
+            v3 = 0
+        else:
+            v3 = v2-v1
+        return '\nThe subtraction of variables is ' + str(v3)
+
+m1, m2 = Add(),Subtraction()
+k1, k2= m1.f1(), m2.f2()
+print(k1, k2)
+
+==========================================================================================================================================================================
+
+
+# Prime Check using the concept of OOP
+# Object Oriented Programming- 2
+
+class Numbers():
+    n = int(input('A random number\n'))
+
+
+class Generalise(Numbers):
+
+
+    def properties(self, p= Numbers.n):
+        if p > 0:
+            txt = 'Positive'
+        elif p==0:
+            txt = 'Zero'
+        else:
+            txt= 'Negative'
+        return txt
+    def check(self, c = Numbers.n):
+        if (c%2) == 0:
+            return 'Even'
+        else:
+            return 'Odd'
+
+class Higher(Generalise):
+    def check(self, c = Numbers.n):
+        if ((c%2) != 0 and (c%3) != 0):
+            return ',Odd and Prime'
+        elif ((c%2) != 0 and (c%3)== 0):
+            return ',Odd but not Prime.'
+        else:
+            return ',Even and not Prime'
+
+
+g1 = Generalise().properties()
+g2 = Higher().check()
+print(g1, g2)
+
+====================================================================================================================================================================
+
+# Password change messeging using OOPs concept(Over-riding):
+class C1():
+    i_p = input('Your Initial Password ')
+    n_p = input('New Password ')
+
+class C2(C1):
+    def Correction(self, ip= C1.i_p, np= C1.n_p):
+        while True:
+            if ip==np:
+                txt = 'You have given same password as initial and as new, So change.'
+                print(txt)
+                break
+            else:
+                txt = 'Thanks for changing the password, we working on it.\n'
+                break
+        return txt
+    def Check(self, np= C1.n_p):
+        l = len(np)
+        i, i1 = 0, []
+        while i<l:
+            m = np[i:i+1]
+            i1.append(m)
+            i+=1
+        txt1 = 'Checking for Alpha-numericals letters inclusion. '
+        print(txt1)
+        for t in i1:
+            if t == ('@' or '$' or '*'):
+                txt1 = 'Included special symbols. (@,$,*)'
+                continue
+            else:
+                txt1 = 'Recommended to use symbols like @,$,*'
+                continue
+        return txt1
+class C3(C2):
+    def __init__(self):
+        print('Your initial password was ', C2.i_p)
+        print('Your New password is ',C2.n_p)
+        return
+    def Check(self, np= C2.n_p):
+        txt1= 'Checking for Alpha-numericals letters inclusion. '
+        print(txt1)
+        l = len(np)
+        t1 = list(range(0,10))
+        t1 = str(t1)
+        i, i1 = 0, []
+        while i < l:
+            m = np[i:i + 1]
+            i1.append(m)
+            i += 1
+        txt2 = ''
+        for t in i1:
+            if t == ('@' or '$' or '*'):
+                txt1 = 'Included special symbols.{0}'.format(t)
+                continue
+            elif t in t1:
+                txt2 = 'Included numericals.{0}'.format(t)
+                continue
+            else:
+                continue
+        txt3= 'Recommended to use symbol and numeric value to create a strong password'
+        if (('@' or '$' or '*') and t1) not in i1:
+            txt3 = 'Please do use password with alphanumeric letters!'
+        return txt1, txt2, txt3
+
+
+
+c= C2().Correction()
+c1 = C3().Check()
+print(c, c1)
+
+=========================================================================================================================================================================
+
+
+# We tried data enlisting using concept of OOPs
+class D1():
+
+
+    def I1(self):
+        no_of_rows = int(input('You need to give a row number in total: '))
+        no_of_columns= int(input('For the same number of row give number of columns: '))
+        return no_of_rows, no_of_columns
+class D2(D1):
+
+    def I2(self, rxc= D1().I1()):
+        import numpy as np, pandas as pd
+        no_of_rows, no_of_columns = rxc
+        col_names, cell_data = [], []
+        for x in range(0, no_of_columns):
+
+            t= "{0} Column_Name".format(x)
+            col_names.append(t)
+            continue
+        for x1 in range(0, no_of_rows):
+            for x2 in range(0, no_of_columns):
+
+                t1 = 0
+                cell_data.append(t1)
+                continue
+            continue
+        n1 = np.array(cell_data)
+        n1 = n1.reshape(no_of_rows, no_of_columns)
+        d1 = pd.DataFrame(data=n1, columns=col_names)
+        return d1
+
+class D3(D2,D1):
+    def __init__(self):
+        print('Sample table created...')
+        print(D2().I2())
+        return
+
+    def I2(self, rxc= D1().I1()):
+        import numpy as np, pandas as pd
+        no_of_rows, no_of_columns = rxc
+        cell_info, col_name, index_list = [], [], []
+        for x4 in range(0,no_of_rows):
+            for x5 in range(0, no_of_columns):
+                info = float(input('Numerical details for {0} row and {1} column '.format(x4,x5)))
+                cell_info.append(info)
+                continue
+            continue
+        for x6 in range(0, no_of_columns):
+            info1 = input('Give name of {0} column '.format(x6))
+            col_name.append(info1)
+            continue
+        index = input('Do you want to specify index names? answer with Y, N ')
+        if index=='Y':
+            for x7 in range(0, no_of_rows):
+                info2 = input('Index name for row {0} '.format(x7))
+                index_list.append(info2)
+                continue
+        else:
+            exit()
+        n2 = np.array(cell_info)
+        n2 = n2.reshape(no_of_rows, no_of_columns)
+        d2 = pd.DataFrame(data=n2, columns=col_name, index=index_list)
+
+        return d2
+
+
+c = D3()
+c1= c.I2()
+print(c1)
